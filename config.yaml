@@ -12,11 +12,11 @@ docs: docs
 # ----------------------------------------------------------------------------
 # Details on repo, used for docs. Change this to details for your project.
 # ----------------------------------------------------------------------------
-github_repo: SARS-CoV-2_Omicron_BA.2_spike_DMS
+github_repo: SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity
 github_user: dms-vep
 github_branch: main  # main branch for repo, assume renamed from master -> main
-description: Deep mutational scanning of SARS-CoV-2 Omicron BA.2 spike using a barcoded lentiviral platform
-year: 2022
+description: ACE2 affinity measurement using lentivirus-based SARS-CoV-2 Omicron BA.2 spike deep mutational scanning
+year: 2023
 authors: Bernadeta Dadonaite and Jesse Bloom
 
 # ----------------------------------------------------------------------------

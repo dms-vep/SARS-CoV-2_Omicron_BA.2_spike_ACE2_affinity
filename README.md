@@ -1,7 +1,7 @@
-# Deep mutational scanning of SARS-CoV-2 Omicron BA.2 spike using a barcoded lentiviral platform
+# SARS-CoV-2 Omicron BA.2 spike ACE2 affinity measurement using a barcoded lentiviral platform
 Study by Bernadeta Dadonaite and Jesse Bloom.
 
-For documentation of the analysis, see [https://dms-vep.github.io/SARS-CoV-2_Omicron_BA.2_spike_DMS/](https://dms-vep.github.io/SARS-CoV-2_Omicron_BA.2_spike_DMS/).
+For documentation of the analysis, see [https://dms-vep.github.io/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/](https://dms-vep.github.io/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/).
 
 ## Organization of this repo
 

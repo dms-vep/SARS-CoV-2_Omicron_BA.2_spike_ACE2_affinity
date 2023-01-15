@@ -1,8 +1,8 @@
-Deep mutational scanning of SARS-CoV-2 Omicron BA.2 spike using a barcoded lentiviral platform
-==============================================================================================
+ACE2 affinity measurement using lentivirus-based SARS-CoV-2 Omicron BA.2 spike deep mutational scanning
+=======================================================================================================
 
 This page documents the data analysis.
-For the actual code, see https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_DMS
+For the actual code, see https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity
 
 Study by Bernadeta Dadonaite and Jesse Bloom.
 
@@ -35,19 +35,19 @@ details, using dropdowns, etc.
 
 Data files
 ----------
-- `parental gene sequence <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_DMS/blob/main/./results/gene_sequence/codon.fasta>`_
-- `parental protein sequence <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_DMS/blob/main/./results/gene_sequence/protein.fasta>`_
-- `sequential-to-reference site numbers <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_DMS/blob/main/./results/site_numbering/site_numbering_map.csv>`_
-- `codon-variant table <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_DMS/blob/main/./results/variants/codon_variants.csv>`_
-- `processed barcode sequencing runs <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_DMS/blob/main/./results/barcode_runs/processed_barcode_runs.csv>`_
-- `variant counts <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_DMS/blob/main/./results/variant_counts>`_
-- `functional selection experiments <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_DMS/blob/main/./results/func_scores/functional_selections.csv>`_
-- `mutation effects for each functional selection <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_DMS/blob/main/./results/globalepistasis_fits>`_
-- `mutation functional effects replicate average (observed phenotype) <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_DMS/blob/main/./results/muteffects_functional/muteffects_observed.csv>`_
-- `mutation functional effects replicate average (latent phenotype) <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_DMS/blob/main/./results/muteffects_functional/muteffects_latent.csv>`_
-- `antibody selection experiments <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_DMS/blob/main/./results/prob_escape/antibody_selections.csv>`_
-- `antibody escape values <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_DMS/blob/main/./results/antibody_escape>`_
-- `sequential to reference site numbering <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_DMS/blob/main/./results/site_numbering/site_numbering_map.csv>`_
+- `parental gene sequence <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/gene_sequence/codon.fasta>`_
+- `parental protein sequence <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/gene_sequence/protein.fasta>`_
+- `sequential-to-reference site numbers <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/site_numbering/site_numbering_map.csv>`_
+- `codon-variant table <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/variants/codon_variants.csv>`_
+- `processed barcode sequencing runs <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/barcode_runs/processed_barcode_runs.csv>`_
+- `variant counts <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/variant_counts>`_
+- `functional selection experiments <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/func_scores/functional_selections.csv>`_
+- `mutation effects for each functional selection <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/globalepistasis_fits>`_
+- `mutation functional effects replicate average (observed phenotype) <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/muteffects_functional/muteffects_observed.csv>`_
+- `mutation functional effects replicate average (latent phenotype) <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/muteffects_functional/muteffects_latent.csv>`_
+- `antibody selection experiments <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/prob_escape/antibody_selections.csv>`_
+- `antibody escape values <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/antibody_escape>`_
+- `sequential to reference site numbering <https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/site_numbering/site_numbering_map.csv>`_
 
 Interactive plots of mutation functional effects
 ------------------------------------------------
@@ -56,19 +56,5 @@ Interactive plots of mutation functional effects
 
 Interactive plots of mutation antibody escape
 ---------------------------------------------
-- `360C escape plot <360C_escape_plot.html>`_
-- `361C escape plot <361C_escape_plot.html>`_
-- `362C escape plot <362C_escape_plot.html>`_
-- `364C escape plot <364C_escape_plot.html>`_
-- `379C escape plot <379C_escape_plot.html>`_
-- `400C escape plot <400C_escape_plot.html>`_
-- `405C escape plot <405C_escape_plot.html>`_
-- `407C escape plot <407C_escape_plot.html>`_
 - `ACE2 monomeric escape plot <ACE2_monomeric_escape_plot.html>`_
-- `COV3560 escape plot <COV3560_escape_plot.html>`_
-- `COV3561 escape plot <COV3561_escape_plot.html>`_
-- `COV3566 escape plot <COV3566_escape_plot.html>`_
-- `COV3600 escape plot <COV3600_escape_plot.html>`_
-- `COV3619 escape plot <COV3619_escape_plot.html>`_
-- `COV3731 escape plot <COV3731_escape_plot.html>`_
 

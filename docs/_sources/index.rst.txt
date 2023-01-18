@@ -32,6 +32,7 @@ details, using dropdowns, etc.
    analyze_prob_escape
    fit_polyclonal
    avg_antibody_escape
+   affinity_correlation
 
 Data files
 ----------

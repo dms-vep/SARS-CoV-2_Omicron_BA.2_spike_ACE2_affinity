@@ -123,6 +123,15 @@ fit_polyclonal_threads: 2  # threads to use bootstrapping polyclonal models
 polyclonal_config: data/polyclonal_config.yaml
 
 # ----------------------------------------------------------------------------
+# settings for RBD affiity comparison
+# ----------------------------------------------------------------------------
+
+# RBD yeast display deep mutational scanning data from Starr et al (2022)
+rbd_dms_Starr: https://media.githubusercontent.com/media/jbloomlab/SARS-CoV-2-RBD_DMS_Omicron/f76ba2b2bec18ede9fa9da18c9ccc52389b1ba3a/results/final_variant_scores/final_variant_scores.csv
+rbd_dms_Starr_target: Omicron_BA2  # analyze Starr et al data for this target
+
+
+# ----------------------------------------------------------------------------
 # Names of output directories / files
 # ----------------------------------------------------------------------------
 # directory with logs from running snakemake steps

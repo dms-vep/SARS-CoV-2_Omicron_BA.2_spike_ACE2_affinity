@@ -44,6 +44,25 @@ rule site_numbering_map:
     script:
         "scripts/site_numbering_map.py"
 
+rule affinity_correlation:
+    """Get ``polyclonal`` predicted IC50s for validated mutations."""
+    input:
+        [
+            os.path.join(config["escape_dir"], f"{antibody}.pickle")
+            for antibody in pd.read_csv(config["barcode_runs"])["antibody"].dropna().unique()
+        ],
+        config["muteffects_observed"],
+        nb="notebooks/affinity_correlation.ipynb",
+    output:
+        nb="results/notebooks/affinity_correlation.ipynb",
+    log:
+        os.path.join(config["logdir"], "affinity_correlation.txt"),
+    conda:
+        "dms-vep-pipeline/environment.yml"
+    shell:
+        "papermill {input.nb} {output.nb} &> {log}"
+
+
 
 # Add any extra data/results files for docs with name: file
 extra_data_files = {

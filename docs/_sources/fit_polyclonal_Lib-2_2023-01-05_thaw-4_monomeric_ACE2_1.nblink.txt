@@ -1,3 +1,0 @@
-{
-    "path": "../notebooks/fit_polyclonal_Lib-2_2023-01-05_thaw-4_monomeric_ACE2_1.ipynb"
-}

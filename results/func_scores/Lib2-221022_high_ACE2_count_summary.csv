@@ -1,0 +1,2 @@
+selection,library,pre_selection_sample,post_selection_sample,pre_selection_date,post_selection_date,min_pre_selection_count,pre_count_median,pre_count_q1,pre_count_q3,pre_count_min,pre_count_max,post_count_median,post_count_q1,post_count_q3,post_count_min,post_count_max
+Lib2-221022_high_ACE2,Lib2,Lib2-221022-VSVG_control_293T,Lib2-221022-no-antibody_control_highACE2,2022-10-22,2022-10-22,25,402.0,172.0,936.0,0,20276,221.0,40.0,738.0,0,16974

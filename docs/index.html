@@ -1,98 +1,194 @@
-
-<!DOCTYPE html>
-
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
-    <title>ACE2 affinity measurement using lentivirus-based SARS-CoV-2 Omicron BA.2 spike deep mutational scanning &#8212; ACE2 affinity measurement using lentivirus-based SARS-CoV-2 Omicron BA.2 spike deep mutational scanning  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Counts of variants" href="analyze_variant_counts.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head><body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-          
-
-          <div class="body" role="main">
-            
-  <section id="ace2-affinity-measurement-using-lentivirus-based-sars-cov-2-omicron-ba-2-spike-deep-mutational-scanning">
-<h1>ACE2 affinity measurement using lentivirus-based SARS-CoV-2 Omicron BA.2 spike deep mutational scanning<a class="headerlink" href="#ace2-affinity-measurement-using-lentivirus-based-sars-cov-2-omicron-ba-2-spike-deep-mutational-scanning" title="Permalink to this heading">¶</a></h1>
-<p>This page documents the data analysis.
-For the actual code, see <a class="reference external" href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity">https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity</a></p>
-<p>Study by Bernadeta Dadonaite and Jesse Bloom.</p>
-<section id="analysis-notebooks">
-<h2>Analysis notebooks<a class="headerlink" href="#analysis-notebooks" title="Permalink to this heading">¶</a></h2>
-<p>Many of the plots in these notebooks are interactive, so try mousing over points for
-details, using dropdowns, etc.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="analyze_variant_counts.html">Counts of variants</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyze_prob_escape.html">Probabilities of escape and neutralization in antibody selections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fit_polyclonal.html">Fit <code class="docutils literal notranslate"><span class="pre">polyclonal</span></code> models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="avg_antibody_escape.html">Antibody-escape averaged across replicates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="affinity_correlation.html">Compare RBD affinity meadured by yeast DMS versus full-spike lentivirus DMS</a></li>
+<h1 id="deep-mutational-scanning-of-sars-cov-2-ba2-spike-using-a-barcoded-lentiviral-platform">Deep mutational scanning of SARS-CoV-2 BA.2 spike using a barcoded lentiviral platform</h1>
+<p>Analysis by Bernadeta Dadonaite and Jesse Bloom (2023)</p>
+<p>See <a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity">https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity</a> for full code.</p>
+<div class="toc"><span class="toctitle">Contents</span><ul>
+<li><a href="#barcode-to-codon-variant-lookup-table">Barcode to codon-variant lookup table</a></li>
+<li><a href="#count-barcodes-for-variants">Count barcodes for variants</a></li>
+<li><a href="#functional-effects-of-mutations">Functional effects of mutations</a></li>
+<li><a href="#antibodyserum-escape">Antibody/serum escape</a></li>
+<li><a href="#receptor-affinity">Receptor affinity</a></li>
+<li><a href="#site-numbering">Site numbering</a></li>
 </ul>
 </div>
-</section>
-<section id="data-files">
-<h2>Data files<a class="headerlink" href="#data-files" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/gene_sequence/codon.fasta">parental gene sequence</a></p></li>
-<li><p><a class="reference external" href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/gene_sequence/protein.fasta">parental protein sequence</a></p></li>
-<li><p><a class="reference external" href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/site_numbering/site_numbering_map.csv">sequential-to-reference site numbers</a></p></li>
-<li><p><a class="reference external" href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/variants/codon_variants.csv">codon-variant table</a></p></li>
-<li><p><a class="reference external" href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/barcode_runs/processed_barcode_runs.csv">processed barcode sequencing runs</a></p></li>
-<li><p><a class="reference external" href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/variant_counts">variant counts</a></p></li>
-<li><p><a class="reference external" href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/prob_escape/antibody_selections.csv">antibody selection experiments</a></p></li>
-<li><p><a class="reference external" href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/antibody_escape">antibody escape values</a></p></li>
-<li><p><a class="reference external" href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/./results/site_numbering/site_numbering_map.csv">sequential to reference site numbering</a></p></li>
+<h2 id="barcode-to-codon-variant-lookup-table">Barcode to codon-variant lookup table</h2>
+<h4 id="analysis-notebooks">Analysis notebooks</h4>
+<ul>
+<li><a href="notebooks/analyze_pacbio_ccs.html">Analysis of PacBio CCSs</a></li>
+<li><a href="notebooks/build_pacbio_consensus.html">Building barcoded variant consensus sequences</a></li>
+<li><a href="notebooks/build_codon_variants.html">Building of codon-variant table</a></li>
 </ul>
-</section>
-<section id="interactive-plots-of-mutation-antibody-escape">
-<h2>Interactive plots of mutation antibody escape<a class="headerlink" href="#interactive-plots-of-mutation-antibody-escape" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="monomeric_ACE2_escape_plot.html">monomeric ACE2 escape plot</a></p></li>
-<li><p><a class="reference external" href="monomeric_ACE2_icXX_plot.html">monomeric ACE2 icXX plot</a></p></li>
+<h4 id="data-files">Data files</h4>
+<ul>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/gene_sequence/codon.fasta">parental codon sequence</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/gene_sequence/protein.fasta">parental protein sequence</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/variants/codon_variants.csv">barcode to codon-variant lookup table</a></li>
 </ul>
-</section>
-</section>
+<h2 id="count-barcodes-for-variants">Count barcodes for variants</h2>
+<h4 id="analysis-notebooks_1">Analysis notebooks</h4>
+<ul>
+<li><a href="notebooks/analyze_variant_counts.html">Analysis of variant counts</a></li>
+</ul>
+<h4 id="data-files_1">Data files</h4>
+<ul>
+<li><details><summary>Barcode count CSVs (click triangle to expand/collapse)</summary><ul>
 
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib1-221022-VSVG_control_293T_counts.csv">Lib1-221022-VSVG_control_293T</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib2-221022-VSVG_control_293T_counts.csv">Lib2-221022-VSVG_control_293T</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib1-221022-no-antibody_control_highACE2_counts.csv">Lib1-221022-no-antibody_control_highACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib2-221022-no-antibody_control_highACE2_counts.csv">Lib2-221022-no-antibody_control_highACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib1-221023-VSVG_control_293T_counts.csv">Lib1-221023-VSVG_control_293T</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib2-221023-VSVG_control_293T_counts.csv">Lib2-221023-VSVG_control_293T</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib1-221023-no-antibody_control_highACE2_counts.csv">Lib1-221023-no-antibody_control_highACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib2-221023-no-antibody_control_highACE2_counts.csv">Lib2-221023-no-antibody_control_highACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib2-230105-no-antibody_control_mediumACE2_counts.csv">Lib2-230105-no-antibody_control_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib2-230105-antibody_2.88_mediumACE2_counts.csv">Lib2-230105-antibody_2.88_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib2-230105-antibody_8.633016_mediumACE2_counts.csv">Lib2-230105-antibody_8.633016_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib2-230105-antibody_25.899048_mediumACE2_counts.csv">Lib2-230105-antibody_25.899048_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib2-230105-antibody_77.697144_mediumACE2_counts.csv">Lib2-230105-antibody_77.697144_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib2-230105-antibody_233.091432_mediumACE2_counts.csv">Lib2-230105-antibody_233.091432_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib1-230114-no-antibody_control_mediumACE2_counts.csv">Lib1-230114-no-antibody_control_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib1-230114-antibody_1.8_mediumACE2_counts.csv">Lib1-230114-antibody_1.8_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib1-230114-antibody_5.4_mediumACE2_counts.csv">Lib1-230114-antibody_5.4_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib1-230114-antibody_16.2_mediumACE2_counts.csv">Lib1-230114-antibody_16.2_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib1-230114-antibody_48.6_mediumACE2_counts.csv">Lib1-230114-antibody_48.6_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/barcode_counts/Lib1-230114-antibody_145.8_mediumACE2_counts.csv">Lib1-230114-antibody_145.8_mediumACE2</a></li>
+</ul></details>
 
-          </div>
-          
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;Bernadeta Dadonaite and Jesse Bloom (2023).
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
-      
-      |
-      <a href="_sources/index.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
+</li>
+</ul>
+<h2 id="functional-effects-of-mutations">Functional effects of mutations</h2>
+<h4 id="final-summary-plots">Final summary plots</h4>
+<ul>
+<li><details><summary>Interactive plots of average mutation functional effects (click triangle to expand/collapse)</summary><ul>
 
-    
+<li><a href="htmls/293T_high_ACE2_entry_func_effects.html">293T_high_ACE2_entry</a></li>
+</ul></details>
 
-    
-  </body>
-</html>
+</li>
+<li><details><summary>Interactive plots of average mutation latent-phenotype effects (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="htmls/293T_high_ACE2_entry_latent_effects.html">293T_high_ACE2_entry</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h4 id="analysis-notebooks_2">Analysis notebooks</h4>
+<ul>
+<li><a href="notebooks/analyze_func_scores.html">Analysis of functional scores</a></li>
+<li><details><summary>Notebooks with per-selection global epistasis fitting (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="notebooks/func_effects_global_epistasis_Lib1-221022_high_ACE2.html">Lib1-221022_high_ACE2</a></li>
+<li><a href="notebooks/func_effects_global_epistasis_Lib2-221022_high_ACE2.html">Lib2-221022_high_ACE2</a></li>
+<li><a href="notebooks/func_effects_global_epistasis_Lib1-221023_high_ACE2.html">Lib1-221023_high_ACE2</a></li>
+<li><a href="notebooks/func_effects_global_epistasis_Lib2-221023_high_ACE2.html">Lib2-221023_high_ACE2</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Notebooks averaging mutation functional effects (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="notebooks/avg_func_effects_293T_high_ACE2_entry.html">293T_high_ACE2_entry</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h4 id="data-files_2">Data files</h4>
+<ul>
+<li><details><summary>Per-variant functional score CSVs (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/func_scores/Lib1-221022_high_ACE2_func_scores.csv">Lib1-221022_high_ACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/func_scores/Lib2-221022_high_ACE2_func_scores.csv">Lib2-221022_high_ACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/func_scores/Lib1-221023_high_ACE2_func_scores.csv">Lib1-221023_high_ACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/func_scores/Lib2-221023_high_ACE2_func_scores.csv">Lib2-221023_high_ACE2</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Per-selection mutation functional effect CSVs (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/func_effects/by_selection/Lib1-221022_high_ACE2_func_effects.csv">Lib1-221022_high_ACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/func_effects/by_selection/Lib2-221022_high_ACE2_func_effects.csv">Lib2-221022_high_ACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/func_effects/by_selection/Lib1-221023_high_ACE2_func_effects.csv">Lib1-221023_high_ACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/func_effects/by_selection/Lib2-221023_high_ACE2_func_effects.csv">Lib2-221023_high_ACE2</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Average mutation functional effects (CSV files) (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/func_effects/averages/293T_high_ACE2_entry_func_effects.csv">293T_high_ACE2_entry</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Average mutation latent-phenotype effects (CSV files) (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/func_effects/averages/293T_high_ACE2_entry_func_effects.csv">293T_high_ACE2_entry</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h2 id="antibodyserum-escape">Antibody/serum escape</h2>
+<h4 id="final-summary-plots_1">Final summary plots</h4>
+<h4 id="analysis-notebooks_3">Analysis notebooks</h4>
+<h4 id="data-files_3">Data files</h4>
+<h2 id="receptor-affinity">Receptor affinity</h2>
+<h4 id="final-summary-plots_2">Final summary plots</h4>
+<ul>
+<li><details><summary>receptor affinity mutation effect plots (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="htmls/monomeric_ACE2_mut_effect.html">monomeric_ACE2</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>receptor affinity mutation ICXX plots (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="htmls/monomeric_ACE2_mut_icXX.html">monomeric_ACE2</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h4 id="analysis-notebooks_4">Analysis notebooks</h4>
+<ul>
+<li><details><summary>Fits of polyclonal models to individual receptor affinity selections (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="notebooks/fit_escape_receptor_affinity_Lib1-230114-monomeric_ACE2.html">Lib1-230114-monomeric_ACE2</a></li>
+<li><a href="notebooks/fit_escape_receptor_affinity_Lib2-230105-monomeric_ACE2.html">Lib2-230105-monomeric_ACE2</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Average selections for receptor affinity (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="notebooks/avg_escape_receptor_affinity_monomeric_ACE2.html">monomeric_ACE2</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h4 id="data-files_4">Data files</h4>
+<ul>
+<li><details><summary>Probability (fraction) escape for each variant in each receptor affinity selection (CSVs) (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/receptor_affinity/by_selection/Lib1-230114-monomeric_ACE2/Lib1-230114-antibody_1.8_mediumACE2_prob_escape.csv">Lib1-230114-monomeric_ACE2 Lib1-230114-antibody_1.8_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/receptor_affinity/by_selection/Lib1-230114-monomeric_ACE2/Lib1-230114-antibody_5.4_mediumACE2_prob_escape.csv">Lib1-230114-monomeric_ACE2 Lib1-230114-antibody_5.4_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/receptor_affinity/by_selection/Lib1-230114-monomeric_ACE2/Lib1-230114-antibody_16.2_mediumACE2_prob_escape.csv">Lib1-230114-monomeric_ACE2 Lib1-230114-antibody_16.2_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/receptor_affinity/by_selection/Lib1-230114-monomeric_ACE2/Lib1-230114-antibody_48.6_mediumACE2_prob_escape.csv">Lib1-230114-monomeric_ACE2 Lib1-230114-antibody_48.6_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/receptor_affinity/by_selection/Lib1-230114-monomeric_ACE2/Lib1-230114-antibody_145.8_mediumACE2_prob_escape.csv">Lib1-230114-monomeric_ACE2 Lib1-230114-antibody_145.8_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/receptor_affinity/by_selection/Lib2-230105-monomeric_ACE2/Lib2-230105-antibody_2.88_mediumACE2_prob_escape.csv">Lib2-230105-monomeric_ACE2 Lib2-230105-antibody_2.88_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/receptor_affinity/by_selection/Lib2-230105-monomeric_ACE2/Lib2-230105-antibody_8.633016_mediumACE2_prob_escape.csv">Lib2-230105-monomeric_ACE2 Lib2-230105-antibody_8.633016_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/receptor_affinity/by_selection/Lib2-230105-monomeric_ACE2/Lib2-230105-antibody_25.899048_mediumACE2_prob_escape.csv">Lib2-230105-monomeric_ACE2 Lib2-230105-antibody_25.899048_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/receptor_affinity/by_selection/Lib2-230105-monomeric_ACE2/Lib2-230105-antibody_77.697144_mediumACE2_prob_escape.csv">Lib2-230105-monomeric_ACE2 Lib2-230105-antibody_77.697144_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/receptor_affinity/by_selection/Lib2-230105-monomeric_ACE2/Lib2-230105-antibody_233.091432_mediumACE2_prob_escape.csv">Lib2-230105-monomeric_ACE2 Lib2-230105-antibody_233.091432_mediumACE2</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>receptor affinity CSVs (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/receptor_affinity/averages/monomeric_ACE2_mut_effect.csv">monomeric_ACE2</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>receptor affinity ICXX CSVs (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/results/receptor_affinity/averages/monomeric_ACE2_mut_icXX.csv">monomeric_ACE2</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h2 id="site-numbering">Site numbering</h2>
+<h4 id="reference-to-sequential-site-numbering-map"><a href="https://github.com/dms-vep/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/blob/main/data/site_numbering_map.csv">Reference to sequential site-numbering map</a></h4>

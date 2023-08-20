@@ -122,8 +122,6 @@ avg_func_effects:
     <<: *avg_func_effects_default
     title: Mutation effects on entry into 293T cells expressing high ACE2
     selections:
-      - Lib1-221022_high_ACE2
-      - Lib2-221022_high_ACE2
       - Lib1-221023_high_ACE2
       - Lib2-221023_high_ACE2
 

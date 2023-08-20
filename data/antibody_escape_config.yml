@@ -78,9 +78,6 @@ plot_hide_stats_default: &plot_hide_stats_default
     min_filters:
       times_seen: 3
 
-# define the antibody selections
-antibody_selections:
-
 # --------------------------------------------------------------------------------------
 
 # Note that for soluble receptor affinity selections, you define selection experiments
@@ -153,7 +150,7 @@ receptor_selections:
       Lib2-230105-antibody_77.697144_mediumACE2:
         concentration: 77.7
         use_in_fit: true
-     Lib2-230105-antibody_233.091432_mediumACE2:
+      Lib2-230105-antibody_233.091432_mediumACE2:
         concentration: 233.1
         use_in_fit: true
 
@@ -173,8 +170,8 @@ receptor_selections:
 # For soluble receptor experiments used to measure receptor affinity, do exactly the same
 # except under the key `avg_receptor_affinity` rather than `avg_antibody_escape`.
 
-# Define defaults for each antibody/serum, used via the merge (<<) operator
-avg_antibody_escape_default: &avg_antibody_escape_default
+# Define the receptor affinity experiments to average
+avg_receptor_affinity_default: &avg_receptor_affinity_default
   icXX: 90
   escape_plot_kwargs:
     <<: *escape_plot_kwargs_default
@@ -189,14 +186,6 @@ avg_antibody_escape_default: &avg_antibody_escape_default
     You can filter by the functional effects of mutations. Mutations removed by this filter are shown as dark gray squares in the heat map to distinguish unmeasured mutations from ones measured to be deleterious.
 
     The *minimum max* slider is useful to select the sites where mutations have the largest effect.
-
-# Define the antibodies/sera to average
-avg_antibody_escape:
-
-# Define the receptor affinity experiments to average
-avg_receptor_affinity_default: &avg_receptor_affinity_default
-  <<: *avg_antibody_escape_default
-  icXX: 50  # IC50
 
 avg_receptor_affinity:
   monomeric_ACE2:

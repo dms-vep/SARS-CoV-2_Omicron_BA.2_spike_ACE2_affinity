@@ -23,6 +23,9 @@ rule spatial_distances:
 
 # Files (Jupyter notebooks, HTML plots, or CSVs) that you want included in
 # the HTML docs should be added to the nested dict `docs`:
-docs["Site numbering"] = {
-    "Reference to sequential site-numbering map": config["site_numbering_map"],
+docs["Additional data files"] = {
+    "Spike site numbering": {
+        "CSV converting sequential sites in XBB.1.5 spike to Wuhan-Hu-1 reference sites":
+            config["site_numbering_map"],
+    },
 }

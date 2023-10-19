@@ -139,7 +139,7 @@ ACE2_binding_selections:
   Lib1-230114-monomeric_ACE2:
     neut_standard_name: neut_standard
     prob_escape_filters: *prob_escape_filters_default
-    polyclonal_params: *ACE2_bindng_polyclonal_params_default
+    polyclonal_params: *ACE2_binding_polyclonal_params_default
     escape_plot_kwargs: *escape_plot_kwargs_default
     plot_hide_stats: *ACE2_binding_plot_hide_stats_default
     no_antibody_sample: Lib1-230114-no-antibody_control_mediumACE2

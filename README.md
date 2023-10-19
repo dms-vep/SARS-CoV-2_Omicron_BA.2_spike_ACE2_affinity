@@ -2,9 +2,9 @@
 
 Study by Bernadeta Dadonaite and Jesse Bloom.
 
-This deep mutational scanning study looks at the effects of mutations in BA.2 spike on ACE2 affinity using soluble monomeric ACE2 protein. 
+This deep mutational scanning study looks at the effects of mutations in BA.2 spike on ACE2 binding using soluble monomeric ACE2 protein. 
 
-For documentation of the analysis, see [https://dms-vep.github.io/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/](https://dms-vep.github.io/SARS-CoV-2_Omicron_BA.2_spike_ACE2_affinity/)
+For documentation of the analysis, see [https://dms-vep.github.io/SARS-CoV-2_Omicron_BA.2_spike_ACE2_binding/](https://dms-vep.github.io/SARS-CoV-2_Omicron_BA.2_spike_ACE2_binding/)
 
 ## Organization of this repo
 

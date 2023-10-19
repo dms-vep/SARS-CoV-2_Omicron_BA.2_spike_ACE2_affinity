@@ -22,14 +22,14 @@
 #    - `stat_name`: name assigned to statistic, eg, "escape" or "receptor affinity".
 
 assays:
-  receptor_affinity:
-    title: Receptor affinity
-    selections: receptor_selections
-    averages: avg_receptor_affinity
+  ACE2_binding:
+    title: ACE2 binding
+    selections: ACE2_binding_selections
+    averages: avg_ACE2_binding
     prob_escape_scale:
       type: linear
     scale_stat: -1
-    stat_name: receptor affinity
+    stat_name: ACE2 binding
 
 # --------------------------------------------------------------------------------------
 # Configuration for each antibody or soluble receptor selection experiment.
@@ -116,7 +116,7 @@ plot_hide_stats_default: &plot_hide_stats_default
 # Define some defaults slightly different than from antibody selections
 
 # default parameters for `polyclonal` model fitting for receptor affinity
-receptor_polyclonal_params_default: &receptor_polyclonal_params_default
+ACE2_binding_polyclonal_params_default: &ACE2_binding_polyclonal_params_default
   n_epitopes: 1
   spatial_distances: null
   fit_kwargs:  # keyword arguments to `Polyclonal.fit`
@@ -126,7 +126,7 @@ receptor_polyclonal_params_default: &receptor_polyclonal_params_default
     logfreq: 200
 
 # default stats to hide cells on plot of receptor affinity
-receptor_plot_hide_stats_default: &receptor_plot_hide_stats_default
+ACE2_binding_plot_hide_stats_default: &ACE2_binding_plot_hide_stats_default
   functional effect:
     csv: results/func_effects/averages/293T_high_ACE2_entry_func_effects.csv
     csv_col: effect
@@ -135,13 +135,13 @@ receptor_plot_hide_stats_default: &receptor_plot_hide_stats_default
       times_seen: 3
 
 # Define the receptor selections
-receptor_selections:
+ACE2_binding_selections:
   Lib1-230114-monomeric_ACE2:
     neut_standard_name: neut_standard
     prob_escape_filters: *prob_escape_filters_default
-    polyclonal_params: *receptor_polyclonal_params_default
+    polyclonal_params: *ACE2_bindng_polyclonal_params_default
     escape_plot_kwargs: *escape_plot_kwargs_default
-    plot_hide_stats: *receptor_plot_hide_stats_default
+    plot_hide_stats: *ACE2_binding_plot_hide_stats_default
     no_antibody_sample: Lib1-230114-no-antibody_control_mediumACE2
     antibody_samples:
       Lib1-230114-antibody_1.8_mediumACE2:
@@ -162,9 +162,9 @@ receptor_selections:
   Lib2-230105-monomeric_ACE2:
     neut_standard_name: neut_standard
     prob_escape_filters: *prob_escape_filters_default
-    polyclonal_params: *receptor_polyclonal_params_default
+    polyclonal_params: *ACE2_binding_polyclonal_params_default
     escape_plot_kwargs: *escape_plot_kwargs_default
-    plot_hide_stats: *receptor_plot_hide_stats_default
+    plot_hide_stats: *ACE2_binding_plot_hide_stats_default
     no_antibody_sample: Lib2-230105-no-antibody_control_mediumACE2
     antibody_samples:
       Lib2-230105-antibody_2.88_mediumACE2:
@@ -200,7 +200,7 @@ receptor_selections:
 # except under the key `avg_receptor_affinity` rather than `avg_antibody_escape`.
 
 # Define the receptor affinity experiments to average
-avg_receptor_affinity_default: &avg_receptor_affinity_default
+avg_ACE2_binding_default: &avg_ACE2_binding_default
   icXX: 90
   escape_plot_kwargs:
     <<: *escape_plot_kwargs_default
@@ -216,11 +216,11 @@ avg_receptor_affinity_default: &avg_receptor_affinity_default
 
     The *minimum max* slider is useful to select the sites where mutations have the largest effect.
 
-avg_receptor_affinity:
+avg_ACE2_binding:
   monomeric_ACE2:
-    <<: *avg_receptor_affinity_default
-    title: Affinity for monomeric ACE2
-    plot_hide_stats: *receptor_plot_hide_stats_default
+    <<: *avg_ACE2_binding_default
+    title: binding to monomeric ACE2
+    plot_hide_stats: *ACE2_binding_plot_hide_stats_default
     selections:
       - Lib1-230114-monomeric_ACE2
       - Lib2-230105-monomeric_ACE2

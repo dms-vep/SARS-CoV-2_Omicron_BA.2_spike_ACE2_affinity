@@ -206,6 +206,10 @@ avg_ACE2_binding_default: &avg_ACE2_binding_default
     <<: *escape_plot_kwargs_default
     avg_type: median
     per_model_tooltip: true
+    addtl_slider_stats:
+      times_seen: 3
+      escape_std: 5
+    addtl_slider_stats_as_max: [escape_std]
   plot_hide_stats: *plot_hide_stats_default
   legend: |
     Use the site zoom bar at the top to zoom in on specific sites. The line plot shows a summary statistic indicating of the mutation effects at each site. The heat map shows effects for individual mutations, with parental amino-acid identities indicated by x and gray indicating non-measured mutations. Mouse over points for details.

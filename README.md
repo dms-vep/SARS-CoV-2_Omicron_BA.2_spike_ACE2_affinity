@@ -1,6 +1,7 @@
 # Deep mutational scanning of SARS-CoV-2 BA.2 spike
 
-Study by Bernadeta Dadonaite and Jesse Bloom.
+See [Dadonaite et al, bioRxiv, DOI 10.1101/2023.11.13.566961 (2023)](https://doi.org/10.1101/2023.11.13.566961
+) for the paper describing this study.
 
 This deep mutational scanning study looks at the effects of mutations in BA.2 spike on ACE2 binding using soluble monomeric ACE2 protein. 
 
